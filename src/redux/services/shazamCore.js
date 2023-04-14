@@ -35,7 +35,19 @@ export const shazamCoreApi = createApi({
     getArtistDetails: builder.query({
       query: (artistId) => `v2/artists/details?artist_id=${artistId}`,
     }),
+    // track_id is a parameter in the track details API
+    getSongDetails: builder.query({
+      query: ({ songid }) => `v1/tracks/details?track_id=${songid}`,
+    }),
+    getSongRelated: builder.query({
+      query: ({ songid }) => `v1/tracks/related?track_id=${songid}`,
+    }),
   }),
 });
 
-export const { useGetTopChartsQuery, useGetArtistDetailsQuery } = shazamCoreApi; //now we can use getTopcharts as a hook
+export const {
+  useGetTopChartsQuery,
+  useGetArtistDetailsQuery,
+  useGetSongDetailsQuery,
+  useGetSongRelatedQuery,
+} = shazamCoreApi; //now we can use getTopcharts as a hook
