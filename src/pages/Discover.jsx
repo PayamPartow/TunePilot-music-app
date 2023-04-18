@@ -3,6 +3,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { Error, Loader, SongCard } from "../components";
 import { genres } from "../assets/constants";
 import { useGetTopChartsQuery } from "../redux/services/shazamCore";
+import { useGetSongsByGenreQuery } from "../redux/services/shazamCore";
+import { selectGenreListId } from "../redux/features/playerSlice";
 
 // how redux works:
 // we have one huge global state think of it as a CAKE
@@ -14,6 +16,10 @@ import { useGetTopChartsQuery } from "../redux/services/shazamCore";
 
 // }
 
+// for changing the genres we would use dispatch to modify the state (we use select to select a piece of state)
+// dispatch -> dispatches and action to store -> genre
+// selector-> fetch the modified state
+
 const Discover = () => {
   const dispatch = useDispatch();
 
@@ -22,13 +28,21 @@ const Discover = () => {
   // specifically in this case we want to get activesong and isplaying
   // we know our player state has all of this because if the imported playerSlice from redux-toolkit in features folder
   // now that we have these info we can pass them to our songcard component on the bottom
-  const { activeSong, isPlaying } = useSelector((state) => state.player);
 
-  const { data, isFetching, error } = useGetTopChartsQuery();
-  const genreTitle = "Pop";
+  // adding genreListId from our player slice to be usede by the Selector
+  const { activeSong, isPlaying, genreListId } = useSelector(
+    (state) => state.player
+  );
 
+  // const { data, isFetching, error } = useGetTopChartsQuery();
+
+  const { data, isFetching, error } = useGetSongsByGenreQuery(
+    genreListId || "POP"
+  );
   // console.log(data);
 
+  // ,aking genreTitle Dynamic so it displays the selected genre in the title (Discover "genre")
+  const genreTitle = genres.find(({ value }) => value === genreListId)?.title;
   // check to see if we are still fetching data we show a loader component
   if (isFetching) return <Loader title="Loading songs..." />;
   // check to see if we got an error then show the error component
@@ -44,8 +58,8 @@ const Discover = () => {
           Discover {genreTitle}
         </h2>
         <select
-          onChange={() => {}}
-          value="pop"
+          onChange={(e) => dispatch(selectGenreListId(e.target.value))}
+          value={genreListId || "Pop"}
           className="bg-black text-gray-300 p-3 text-sm rounded-lg 
             outline-none sm:myt-0 mt-5"
         >

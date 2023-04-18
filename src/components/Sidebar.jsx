@@ -4,6 +4,7 @@ import { HiOutlineMenu } from "react-icons/hi";
 import { RiCloseLine } from "react-icons/ri";
 
 import { logo } from "../assets";
+import { TunePilot } from "../assets";
 import { links } from "../assets/constants";
 
 const NavLinks = ({ handleClick }) => (
@@ -35,7 +36,11 @@ const Sidebar = () => {
     <>
       {/* icon to open the mobile menu */}
       <div className="md:flex hidden flex-col w-[240px] py-10 px-4 bg-[#191624]">
-        <img src={logo} alt="logo" className="w-full h-14 object-contain" />
+        <img
+          src={TunePilot}
+          alt="logo"
+          className="w-full h-18 object-contain"
+        />
         <NavLinks />
       </div>
 
@@ -59,7 +64,11 @@ const Sidebar = () => {
          mobileMenuOpen ? "left-0" : "-left-full"
        }`}
       >
-        <img src={logo} alt="logo" className="w-full h-14 object-contain" />
+        <img
+          src={TunePilot}
+          alt="logo"
+          className="w-full h-18 object-contain"
+        />
         <NavLinks handleClick={() => setMobileMenuOpen(false)} />
       </div>
     </>

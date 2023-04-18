@@ -32,6 +32,9 @@ export const shazamCoreApi = createApi({
   // building all the endpoints of the API we want to call
   endpoints: (builder) => ({
     getTopCharts: builder.query({ query: () => "v1/charts/world" }), // note that query is a function that returs string
+    getSongsByGenre: builder.query({
+      query: (genre) => `v1/charts/genre-world?genre_code=${genre}`,
+    }),
     getArtistDetails: builder.query({
       query: (artistId) => `v2/artists/details?artist_id=${artistId}`,
     }),
@@ -42,12 +45,22 @@ export const shazamCoreApi = createApi({
     getSongRelated: builder.query({
       query: ({ songid }) => `v1/tracks/related?track_id=${songid}`,
     }),
+    getSongsByCountry: builder.query({
+      query: (countryCode) => `v1/charts/country?country_code=${countryCode}`,
+    }),
+    getSongsBySearch: builder.query({
+      query: (searchTerm) =>
+        `v1/search/multi?search_type=SONGS_ARTISTS&query=${searchTerm}`,
+    }),
   }),
 });
 
 export const {
   useGetTopChartsQuery,
+  useGetSongsByGenreQuery,
   useGetArtistDetailsQuery,
   useGetSongDetailsQuery,
   useGetSongRelatedQuery,
+  useGetSongsByCountryQuery,
+  useGetSongsBySearchQuery,
 } = shazamCoreApi; //now we can use getTopcharts as a hook
