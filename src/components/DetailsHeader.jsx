@@ -33,6 +33,13 @@ const DetailsHeader = ({ artistId, artistData, songData }) => {
               </p>
             </Link>
           )}
+          {artistId && (
+            // linking us to artist details page upon clicking on the subtitle
+
+            <p className="font-bold text-2xl text-gray-400 mt-2">
+              {artistData?.data[0]?.attributes?.name}
+            </p>
+          )}
           <p className="text-base text-gray-400 mt-2">
             {artistId
               ? artistData?.attributes?.genreNames[0]

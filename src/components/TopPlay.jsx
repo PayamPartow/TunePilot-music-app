@@ -33,10 +33,14 @@ const TopChartCard = ({
         <Link to={`/songs/${song.key}`}>
           <p className="text-xl text-white font-bold">{song.title}</p>
         </Link>
-
-        <Link to={`/artists/${song?.artists[0]?.adamid}`}>
-          <p className="text-base text-gray-300 mt-1">{song.subtitle}</p>
-        </Link>
+        {/* 
+        <Link
+          to={`/artists/${
+            song?.artists[0]?.adamid ? song?.artists[0]?.adamid : song?.key
+          }`}
+        > */}
+        <p className="text-base text-gray-300 mt-1">{song.subtitle}</p>
+        {/* </Link> */}
       </div>
     </div>
     <PlayPause
@@ -123,13 +127,19 @@ const TopPlay = () => {
               className="shadow-lg rounded-full animate-slideright"
             >
               {/* /${artist?.artists[0]?.adamid} */}
-              <Link to={`/artists/${artist?.artists[0]?.adamid}`}>
-                <img
-                  src={artist?.images?.background}
-                  alt={artist?.subtitle}
-                  className="rounded-full w-full object-cover"
-                />
-              </Link>
+              {/* <Link
+                to={`/artists/${
+                  artist?.artists[0]?.adamid
+                    ? artist?.artists[0]?.adamid
+                    : artist?.key
+                }`}
+              > */}
+              <img
+                src={artist?.images?.background}
+                alt={artist?.subtitle}
+                className="rounded-full w-full object-cover"
+              />
+              {/* </Link> */}
             </SwiperSlide>
           ))}
         </Swiper>
