@@ -1,7 +1,24 @@
 /* eslint-disable jsx-a11y/media-has-caption */
-import React, { useRef, useEffect } from 'react';
+import React, { useRef, useEffect } from "react";
 
-const Player = ({ activeSong, isPlaying, volume, seekTime, onEnded, onTimeUpdate, onLoadedData, repeat }) => {
+const Player = ({
+  activeSong,
+  isPlaying,
+  volume,
+  seekTime,
+  onEnded,
+  onTimeUpdate,
+  onLoadedData,
+  repeat,
+}) => {
+  // catching error for when such a rpoperty does not exist
+  try {
+    var audioSrc = activeSong?.hub?.actions[1]?.uri;
+  } catch (error) {
+    console.error("Error accessing audio source: ", error.message);
+    audioSrc = "";
+  }
+
   const ref = useRef(null);
   // eslint-disable-next-line no-unused-expressions
   if (ref.current) {
@@ -22,7 +39,7 @@ const Player = ({ activeSong, isPlaying, volume, seekTime, onEnded, onTimeUpdate
 
   return (
     <audio
-      src={activeSong?.hub?.actions[1]?.uri}
+      src={audioSrc}
       ref={ref}
       loop={repeat}
       onEnded={onEnded}
