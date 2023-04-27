@@ -32,6 +32,7 @@ export const shazamCoreApi = createApi({
   // building all the endpoints of the API we want to call
   endpoints: (builder) => ({
     getTopCharts: builder.query({ query: () => "v1/charts/world" }), // note that query is a function that returs string
+    getSchemaCities: builder.query({ query: () => "v1/frame/cities" }),
     getSongsByGenre: builder.query({
       query: (genre) => `v1/charts/genre-world?genre_code=${genre}`,
     }),
@@ -57,6 +58,7 @@ export const shazamCoreApi = createApi({
 
 export const {
   useGetTopChartsQuery,
+  useGetSchemaCitiesQuery,
   useGetSongsByGenreQuery,
   useGetArtistDetailsQuery,
   useGetSongDetailsQuery,
